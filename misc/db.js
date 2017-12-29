@@ -23,10 +23,10 @@ var syncSchema = mongoose.Schema({
 var Drivers = mongoose.model('Drivers', driversSchema);
 var Sync = mongoose.model('Sync', syncSchema);
 
-var timestamp = Math.round(new Date().getTime());
+var timestamp = Math.round( new Date().getTime() / 1000 );
 
 var d = new Drivers({name: "driver1",
-  deviceId: "deviec1",
+  deviceId: "device1",
   carId: "taxi1",
   result: "SUCCESS",
   timestamp: timestamp
@@ -37,7 +37,9 @@ var s = new Sync({data: "ABC123"});
 console.log(d.name);
 
 d.save(function(err, d) {
-  if (err) return console.error(err);
+  if (err && err.code == 11000) {  // Duplicated
+    //
+  }
 });
 
 s.save(function(err, s) {
