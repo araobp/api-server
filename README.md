@@ -52,6 +52,8 @@ Request body (PUT)
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
 
+### Binary data synchronization
+
 ```
 GET /sync
 Download binary data
