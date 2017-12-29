@@ -52,3 +52,17 @@ Request body (PUT)
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
 
+```
+GET /sync
+Download binary data
+```
+Response body (200 OK)
+
+|Name        |type   |Description                                   |
+|------------|-------|----------------------------------------------|
+|data        |String |Binary data encoded in BASE64                 |
+
+```
+GET /sync/timestamp
+Show time at the latest upload
+```
