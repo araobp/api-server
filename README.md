@@ -73,10 +73,10 @@ Example
 ```
 {
   "drivers": [
-    {"driver1": "1514509472"},
-    {"driver2": "1514509359"},
-    {"driver3": "1514509127"}
-    ]
+    ["driver1", "1514509472"],
+    ["driver2", "1514509359"],
+    ["driver3", "1514509127"]
+  ]
 }
 ```
 
@@ -84,6 +84,30 @@ Example
 ```
 DELETE /drivers/{name}
 Delete driver
+```
+
+### Taxi status
+
+#### GET /taxies
+```
+GET /taxies
+List taxies and their drivers
+```
+Response body (200 OK)
+
+|Name        |type   |Description                                                |
+|------------|-------|-----------------------------------------------------------|
+|taxies      |List   |List of taxi, current driver and timestamp at the last PUT |
+
+Example
+```
+{
+  "taxies": [
+    ["taxi1", "driver1", "1514509472"],
+    ["taxi2", "driver2", "1514509359"],
+    ["taxi3", "driver3", "1514509127"]
+  ]
+}
 ```
 
 ### Binary data synchronization
