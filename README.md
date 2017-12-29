@@ -2,6 +2,10 @@
 
 A simple REST API server for managing taxi drivers.
 
+[REFERENCE]
+- [Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
+- [Mongoose](http://mongoosejs.com/docs/)
+
 ## REST API spec
 
 ### TAXI DRIVER STATUS MANAGEMENT
@@ -163,3 +167,14 @@ Example
   "timestamp": "1514509935"
 }
 ```
+
+## Mongoose data schema structure
+
+```
+db: taxi
+
+Drivers
+Taxies
+Sync
+```
+
