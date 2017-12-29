@@ -4,7 +4,7 @@ A simple REST API server for managing taxi drivers.
 
 ## REST API spec
 
-### Taxi driver status
+### TAXI DRIVER STATUS MANAGEMENT
 
 #### PUT /drivers/{name}
 ```
@@ -86,7 +86,7 @@ DELETE /drivers/{name}
 Delete driver
 ```
 
-### Taxi status
+### TAXI STATUS MANAGEMENT
 
 #### GET /taxies
 ```
@@ -110,7 +110,7 @@ Example
 }
 ```
 
-### Binary data synchronization
+### BINARY DATA SYNCHRONIZATION
 
 #### PUT /sync
 ```
