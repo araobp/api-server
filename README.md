@@ -6,6 +6,7 @@ A simple REST API server for managing taxi drivers.
 
 ### Taxi driver status
 
+#### PUT /drivers/{name}
 ```
 PUT /drivers/{name}
 Create/update driver
