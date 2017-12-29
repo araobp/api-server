@@ -6,10 +6,27 @@ A simple REST API server for managing taxi drivers.
 
 ### Taxi driver status
 
+```
 PUT /drivers/{name}
-Create driver status
+Create/update driver
+```
+JSON data format
+
+|Name        |type   |Description                                   |
+|------------|-------|----------------------------------------------|
+|deviceId    |String |Authentication device ID                      |
+|carId       |String |Vehicle ID                                    |
+|result      |String |Authentication result: "SUCCESS" or "FAILURE" |
+|timestamp   |String |Epoch time (aka Unix time)                    |
 
 GET /drivers/{name}
-Show details of driver status
+Show driver details
 
 GET /drivers
+List drivers
+
+DELETE /drivers/{name}
+Delete driver
+
+PUT /sync
+
