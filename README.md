@@ -44,7 +44,7 @@ Response body (200 OK)
 |deviceId    |String |Authentication device ID                      |
 |carId       |String |Vehicle ID                                    |
 |result      |String |Authentication result: "SUCCESS" or "FAILURE" |
-|timestamp   |String |Epoch time (aka Unix time) at the last PUT    |
+|timestamp   |Number |Epoch time (aka Unix time) at the last PUT    |
 
 Note: For example, epoch time can be obtained by typing the following command on Linux: 
 ```
@@ -58,7 +58,7 @@ Example
   "deviceId": "auth-device-1",
   "carId": "taxi-1",
   "result": "FAILURE",
-  "timestamp": "1514509809"
+  "timestamp": 1514509809
 }
 ```
 
@@ -77,9 +77,9 @@ Example
 ```
 {
   "drivers": [
-    ["driver1", "1514509472"],
-    ["driver2", "1514509359"],
-    ["driver3", "1514509127"]
+    ["driver1", 1514509472],
+    ["driver2", 1514509359],
+    ["driver3", 1514509127]
   ]
 }
 ```
@@ -107,9 +107,9 @@ Example
 ```
 {
   "taxies": [
-    ["taxi1", "driver1", "1514509472"],
-    ["taxi2", "driver2", "1514509359"],
-    ["taxi3", "driver3", "1514509127"]
+    ["taxi1", "driver1", 1514509472],
+    ["taxi2", "driver2", 1514509359],
+    ["taxi3", "driver3", 1514509127]
   ]
 }
 ```
