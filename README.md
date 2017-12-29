@@ -9,7 +9,7 @@ A simple REST API server for managing taxi drivers.
 #### PUT /drivers/{name}
 ```
 PUT /drivers/{name}
-Create/update driver
+Create/update driver status
 ```
 Request body (PUT)
 
@@ -18,19 +18,25 @@ Request body (PUT)
 |deviceId    |String |Authentication device ID                      |
 |carId       |String |Vehicle ID                                    |
 |result      |String |Authentication result: "SUCCESS" or "FAILURE" |
-|timestamp   |String |Epoch time (aka Unix time)                    |
 
+#### GET /drivers/{name}
 ```
 GET /drivers/{name}
-Show driver details
+Show driver status details
 ```
 Response body (200 OK)
 
-(Same the above)
+|Name        |type   |Description                                   |
+|------------|-------|----------------------------------------------|
+|deviceId    |String |Authentication device ID                      |
+|carId       |String |Vehicle ID                                    |
+|result      |String |Authentication result: "SUCCESS" or "FAILURE" |
+|timestamp   |String |Epoch time (aka Unix time) at the last PUT    |
 
+#### GET /drivers
 ```
 GET /drivers
-List drivers
+List driver names
 ```
 Response body (200 OK)
 
@@ -38,6 +44,7 @@ Response body (200 OK)
 |------------|-------------|----------------------------------------------|
 |drivers     |String array |List of driver names                          |
 
+#### DELETE /drivers/{name}
 ```
 DELETE /drivers/{name}
 Delete driver
@@ -45,6 +52,7 @@ Delete driver
 
 ### Binary data synchronization
 
+#### POST /sync
 ```
 PUT /sync
 Upload binary data to be shared by other vehicles
@@ -55,6 +63,7 @@ Request body (PUT)
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
 
+#### GET /sync
 ```
 GET /sync
 Download binary data
@@ -65,7 +74,11 @@ Response body (200 OK)
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
 
+#### GET /sync/timestamp
 ```
 GET /sync/timestamp
 Show time at the latest upload
 ```
+|Name        |type   |Description                                   |
+|------------|-------|----------------------------------------------|
+|timestamp   |String |Epoch time (aka Unix time)                    |
