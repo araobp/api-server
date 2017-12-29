@@ -42,6 +42,8 @@ DELETE /drivers/{name}
 Delete driver
 ```
 
+### Binary data synchronization
+
 ```
 PUT /sync
 Upload binary data to be shared by other vehicles
@@ -51,8 +53,6 @@ Request body (PUT)
 |Name        |type   |Description                                   |
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
-
-### Binary data synchronization
 
 ```
 GET /sync
