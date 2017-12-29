@@ -10,7 +10,7 @@ A simple REST API server for managing taxi drivers.
 PUT /drivers/{name}
 Create/update driver
 ```
-JSON data format
+Request body (PUT)
 
 |Name        |type   |Description                                   |
 |------------|-------|----------------------------------------------|
@@ -19,14 +19,36 @@ JSON data format
 |result      |String |Authentication result: "SUCCESS" or "FAILURE" |
 |timestamp   |String |Epoch time (aka Unix time)                    |
 
+```
 GET /drivers/{name}
 Show driver details
+```
+Response body (200 OK)
 
+(Same the above)
+
+```
 GET /drivers
 List drivers
+```
+Response body (200 OK)
 
+|Name        |type         |Description                                   |
+|------------|-------------|----------------------------------------------|
+|drivers     |String array |List of driver names                          |
+
+```
 DELETE /drivers/{name}
 Delete driver
+```
 
+```
 PUT /sync
+Upload binary data to be shared by other vehicles
+```
+Request body (PUT)
+
+|Name        |type   |Description                                   |
+|------------|-------|----------------------------------------------|
+|data        |String |Binary data encoded in BASE64                 |
 
