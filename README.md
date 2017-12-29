@@ -19,6 +19,15 @@ Request body (PUT)
 |carId       |String |Vehicle ID                                    |
 |result      |String |Authentication result: "SUCCESS" or "FAILURE" |
 
+Example
+```
+{
+  "deviceId": "auth-device-1",
+  "carId": "taxi-1",
+  "result": "SUCCESS"
+}
+```
+
 #### GET /drivers/{name}
 ```
 GET /drivers/{name}
@@ -33,6 +42,22 @@ Response body (200 OK)
 |result      |String |Authentication result: "SUCCESS" or "FAILURE" |
 |timestamp   |String |Epoch time (aka Unix time) at the last PUT    |
 
+Note: For example, epoch time can be obtained by typing the following command on Linux: 
+```
+pi@raspberrypi:~ $ date +%s
+1514509935
+```
+
+Example
+```
+{
+  "deviceId": "auth-device-1",
+  "carId": "taxi-1",
+  "result": "FAILURE",
+  "timestamp": "1514509809"
+}
+```
+
 #### GET /drivers
 ```
 GET /drivers
@@ -40,9 +65,20 @@ List driver names
 ```
 Response body (200 OK)
 
-|Name        |type         |Description                                   |
-|------------|-------------|----------------------------------------------|
-|drivers     |String array |List of driver names                          |
+|Name        |type   |Description                                       |
+|------------|-------|--------------------------------------------------|
+|drivers     |List   |List of driver name and timestamp at the last PUT |
+
+Example
+```
+{
+  "drivers": [
+    {"driver1": "1514509472"},
+    {"driver2": "1514509359"},
+    {"driver3": "1514509127"}
+    ]
+}
+```
 
 #### DELETE /drivers/{name}
 ```
@@ -52,7 +88,7 @@ Delete driver
 
 ### Binary data synchronization
 
-#### POST /sync
+#### PUT /sync
 ```
 PUT /sync
 Upload binary data to be shared by other vehicles
@@ -62,6 +98,13 @@ Request body (PUT)
 |Name        |type   |Description                                   |
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
+
+Example
+```
+{
+  "data": "<base64-encoded binary data>"
+}
+```
 
 #### GET /sync
 ```
@@ -74,6 +117,13 @@ Response body (200 OK)
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
 
+Example
+```
+{
+  "data": "<base64-encoded binary data>"
+}
+```
+
 #### GET /sync/timestamp
 ```
 GET /sync/timestamp
@@ -82,3 +132,10 @@ Show time at the latest upload
 |Name        |type   |Description                                   |
 |------------|-------|----------------------------------------------|
 |timestamp   |String |Epoch time (aka Unix time)                    |
+
+Example
+```
+{
+  "timestamp": "1514509935"
+}
+```
