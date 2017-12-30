@@ -108,6 +108,8 @@ Delete driver
 
 ### TAXI STATUS MANAGEMENT
 
+This operation is the heart of the API service.
+
 #### GET /taxies
 ```
 GET /taxies
@@ -128,7 +130,7 @@ Example
 
 ### BINARY DATA SYNCHRONIZATION
 
-#### PUT /sync
+#### PUT /sync/registration
 ```
 PUT /sync/registration
 Upload binary data to be shared by other vehicles
@@ -146,7 +148,7 @@ Example
 }
 ```
 
-#### GET /sync
+#### GET /sync/registration
 ```
 GET /sync/registration
 Download binary data
@@ -166,7 +168,7 @@ Example
 }
 ```
 
-#### GET /sync/timestamp
+#### GET /sync/registration/timestamp
 ```
 GET /sync/registration/timestamp
 Show time at the latest upload
