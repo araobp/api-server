@@ -6,6 +6,23 @@ A simple REST API server for managing taxi drivers.
 - [Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
 - [Mongoose](http://mongoosejs.com/docs/)
 
+## Architecture
+
+System:
+```
+                                           Taxi
+[Driver]--- sensor interface ---[Auth. device][board PC]--- REST ---[API server(MVC)]
+                                                                       |  |
+[Driver]--- sensor interface ---[Auth. device][board PC]--- REST ------+  |
+                                                                          |
+[Driver]--- sensor interface ---[Auth. device][board PC]--- REST ---------+
+```
+
+API Server:
+```
+    --- REST --- [[View]--[Controller]--[Model(Mongoose)][MongoDB]]
+```
+
 ## REST API spec
 
 ### TAXI DRIVER STATUS MANAGEMENT
