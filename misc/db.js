@@ -80,7 +80,7 @@ exports.taxiDB = {
       if (err) {
         callback(true, null);
       } else {
-        var drivers = docs.map(it => [it.driver, it.timestamp]);
+        var drivers = docs.map(it => ({name: it.name, timestamp: it.timestamp}));
         callback(false, drivers);
       }
     });
@@ -99,6 +99,26 @@ exports.taxiDB = {
 
   // CRUD Read operation
   getTaxies: function(callback) {
+    var taxies = {}; 
+    Drivers.find({}, function(err, docs) {
+      if (err) {
+        callback(true, null);
+      } else {
+        docs.forEach(it => {
+          if (it.carId in taxies) {
+            var taxi = taxies[it.carId];
+            var lastTime = taxi.timestamp;
+            if (it.timestamp > lastTime) {
+              taxi.name = it.name;
+              taxi.timestamp = it.timestamp;
+            }
+          } else {
+            taxies[it.carId] = {name: it.name, timestamp: it.timestamp};
+          }
+        });
+        callback(false, taxies);
+      }
+    });
   },
 
   ///// Schema: Sync /////
@@ -139,8 +159,7 @@ exports.taxiDB = {
         callback(false, {timestamp: doc.timestamp});
       }
     });
-
-
+  },
 
   // CRUD Delete operation
   deleteRegistrationData: function(callback) {

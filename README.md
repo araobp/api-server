@@ -95,9 +95,9 @@ Example
 ```
 {
   "drivers": [
-    ["driver1", 1514509472],
-    ["driver2", 1514509359],
-    ["driver3", 1514509127]
+    {"name": "driver1", "timestamp": 1514509472},
+    {"name": "driver2", "timestamp": 1514509359],
+    {"name": "driver3", "timestamp": 1514509127]
   ]
 }
 ```
@@ -125,9 +125,9 @@ Example
 ```
 {
   "taxies": [
-    ["taxi1", "driver1", 1514509472],
-    ["taxi2", "driver2", 1514509359],
-    ["taxi3", "driver3", 1514509127]
+    "taxi1": {"name": "driver1", "timestamp": 1514509472},
+    "taxi2": {"name": "driver2", "timestamp": 1514509359},
+    "taxi3": {"name": "driver3", "timestamp": 1514509127}
   ]
 }
 ```
@@ -184,7 +184,7 @@ Show time at the latest upload
 Example
 ```
 {
-  "timestamp": "1514509935"
+  "timestamp": 1514509935
 }
 ```
 
