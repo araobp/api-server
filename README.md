@@ -110,6 +110,8 @@ Delete driver
 
 This operation is the heart of the API service.
 
+TODO: GPS-based taxi tracking and WebSocket support for pushing data to the client in real time.
+
 #### GET /taxies
 ```
 GET /taxies
