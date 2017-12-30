@@ -18,7 +18,8 @@ var driversSchema = mongoose.Schema({
 
 var syncSchema = mongoose.Schema({
   type: {type: String, unique: true},
-  data: String
+  data: String,
+  timestamp: Number
 });
 
 const REGISTRATION = 'registration';
@@ -111,9 +112,14 @@ exports.taxiDB = {
             if (it.timestamp > lastTime) {
               taxi.name = it.name;
               taxi.timestamp = it.timestamp;
+              taxi.result = it.result;
             }
           } else {
-            taxies[it.carId] = {name: it.name, timestamp: it.timestamp};
+            taxies[it.carId] = {
+              name: it.name,
+              timestamp: it.timestamp,
+              result: it.result
+            };
           }
         });
         callback(false, taxies);

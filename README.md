@@ -162,7 +162,7 @@ Example
 ```
 {
   "data": "<base64-encoded binary data>",
-  "timestamp": "1514509935"
+  "timestamp": 1514509935
 }
 ```
 
