@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', () => {
   console.log('DB connected');
 });
 
@@ -35,11 +35,11 @@ var s2 = {type: REGISTRATION, data: "DEF456"};
 
 // Create or Update
 
-Sync.findOneAndUpdate({'type': REGISTRATION}, s1, {upsert: true}, function(err, doc) {
+Sync.findOneAndUpdate({'type': REGISTRATION}, s1, {upsert: true}, (err, doc) => {
     if (err) console.log(err);
   }
 );
-Sync.findOneAndUpdate({'type': REGISTRATION}, s2, {upsert: true}, function(err, doc) {
+Sync.findOneAndUpdate({'type': REGISTRATION}, s2, {upsert: true}, (err, doc) => {
     if (err) console.log(err);
   }
 );
@@ -51,7 +51,7 @@ exports.taxiDB = {
   // CRUD Create/Update operation
   putDriverStatus: function(s, callback) {
     s.timestamp = getTimestamp();
-    Drivers.findOneAndUpdate({'name': s.name}, s, {upsert: true}, function(err, doc) {
+    Drivers.findOneAndUpdate({'name': s.name}, s, {upsert: true}, (err, doc) => {
       if (err) {
         callback(true);
       } else {
@@ -62,7 +62,7 @@ exports.taxiDB = {
 
   // CRUD Read operation
   getDriverStatus: function(name, callback) {
-    Drivers.findOne({'name': name}, function(err, doc) {
+    Drivers.findOne({'name': name}, (err, doc) => {
       if (err) {
         callback(true, null);
       } else {
@@ -76,7 +76,7 @@ exports.taxiDB = {
 
   // CRUD Read operation
   getDrivers: function(callback) {
-    Drivers.find({}, function(err, docs) {
+    Drivers.find({}, (err, docs) => {
       if (err) {
         callback(true, null);
       } else {
@@ -88,7 +88,7 @@ exports.taxiDB = {
 
   // CRUD Delete operation
   deleteDriverStatus: function(name, callback) {
-    Drivers.findOneAndRemove({'name': name}, function(err, name) {
+    Drivers.findOneAndRemove({'name': name}, (err, name) => {
       if (err) {
         callback(true);
       } else {
@@ -100,7 +100,7 @@ exports.taxiDB = {
   // CRUD Read operation
   getTaxies: function(callback) {
     var taxies = {}; 
-    Drivers.find({}, function(err, docs) {
+    Drivers.find({}, (err, docs) => {
       if (err) {
         callback(true, null);
       } else {
@@ -126,7 +126,7 @@ exports.taxiDB = {
   // CURD Create/Update operation
   putRegistrationData: function(d, callback) {
     d.timestamp = getTimestamp();
-    Sync.findOneAndUpdate({'type': REGISTRATION}, d, {upsert: true}, function(err, doc) {
+    Sync.findOneAndUpdate({'type': REGISTRATION}, d, {upsert: true}, (err, doc) => {
       if (err) {
         callback(true);
       } else {
@@ -137,7 +137,7 @@ exports.taxiDB = {
 
   // CRUD Read operation
   getRegistrationData: function(callback) {
-    Sync.findOne({'type': REGISTRATION}, function(err, doc) {
+    Sync.findOne({'type': REGISTRATION}, (err, doc) => {
       if (err) {
         callback(true, null);
       } else {
@@ -152,7 +152,7 @@ exports.taxiDB = {
 
   // CRUD Read operation
   getRegistrationDataTimestamp: function(callback) {
-    Sync.findOne({'type': REGISTRATION}, function(err, doc) {
+    Sync.findOne({'type': REGISTRATION}, (err, doc) => {
       if (err) {
         callback(true, null);
       } else {
@@ -163,7 +163,7 @@ exports.taxiDB = {
 
   // CRUD Delete operation
   deleteRegistrationData: function(callback) {
-    Sync.findOneAndRemove({'type': REGISTRATION}, function(err, type) {
+    Sync.findOneAndRemove({'type': REGISTRATION}, (err, type) => {
       if (err) {
         callback(true);
       } else {

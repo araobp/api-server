@@ -2,6 +2,8 @@
 
 A simple REST API server for managing taxi drivers.
 
+Node.js version: v8.9.3
+
 [REFERENCE]
 - [MongoDB](https://www.mongodb.com/)
 - [Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
