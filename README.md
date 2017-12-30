@@ -26,6 +26,11 @@ API Server:
 ```
     --- REST --- [[app.js]--[db.js(mongoose-based)]--[MongoDB]]
 ```
+## Implementation
+
+- [API Server](./server)
+- [Sample client](./client)
+This sample client is intended for RasPi as IoT GW.
 
 ## REST API spec
 
