@@ -3,6 +3,7 @@
 A simple REST API server for managing taxi drivers.
 
 Node.js version: v8.9.3
+MongoDB version: v2.6.10
 
 [REFERENCE]
 - [MongoDB](https://www.mongodb.com/)
@@ -108,6 +109,10 @@ Delete driver
 
 ### TAXI STATUS MANAGEMENT
 
+This operation is the heart of the API service.
+
+TODO: GPS-based taxi tracking and WebSocket support for pushing data to the client in real time.
+
 #### GET /taxies
 ```
 GET /taxies
@@ -128,7 +133,7 @@ Example
 
 ### BINARY DATA SYNCHRONIZATION
 
-#### PUT /sync
+#### PUT /sync/registration
 ```
 PUT /sync/registration
 Upload binary data to be shared by other vehicles
@@ -146,7 +151,7 @@ Example
 }
 ```
 
-#### GET /sync
+#### GET /sync/registration
 ```
 GET /sync/registration
 Download binary data
@@ -166,7 +171,7 @@ Example
 }
 ```
 
-#### GET /sync/timestamp
+#### GET /sync/registration/timestamp
 ```
 GET /sync/registration/timestamp
 Show time at the latest upload
