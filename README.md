@@ -89,19 +89,15 @@ List driver names
 ```
 Response body (200 OK)
 
-|Name        |type   |Description                                       |
-|------------|-------|--------------------------------------------------|
-|drivers     |List   |List of driver name and timestamp at the last PUT |
+List of driver name and timestamp at the last PUT.
 
 Example
 ```
-{
-  "drivers": [
-    {"name": "driver1", "timestamp": 1514509472},
-    {"name": "driver2", "timestamp": 1514509359],
-    {"name": "driver3", "timestamp": 1514509127]
-  ]
-}
+[
+  {"name": "driver1", "timestamp": 1514509472},
+  {"name": "driver2", "timestamp": 1514509359],
+  {"name": "driver3", "timestamp": 1514509127]
+]
 ```
 
 #### DELETE /drivers/{name}
@@ -119,18 +115,14 @@ List taxies and their drivers
 ```
 Response body (200 OK)
 
-|Name        |type   |Description                                                |
-|------------|-------|-----------------------------------------------------------|
-|taxies      |List   |List of taxi, current driver and timestamp at the last PUT |
+List of driver name and timestamp at the last PUT
 
 Example
 ```
 {
-  "taxies": [
-    "taxi1": {"name": "driver1", "timestamp": 1514509472},
-    "taxi2": {"name": "driver2", "timestamp": 1514509359},
-    "taxi3": {"name": "driver3", "timestamp": 1514509127}
-  ]
+  "taxi1": {"name": "driver1", "result": "SUCCESS", "timestamp": 1514509472},
+  "taxi2": {"name": "driver2", "result": "SUCCESS", "timestamp": 1514509359},
+  "taxi3": {"name": "driver3", "result": "FAILURE", "timestamp": 1514509127}
 }
 ```
 
