@@ -23,6 +23,8 @@ var syncSchema = mongoose.Schema({
 });
 
 const REGISTRATION = 'registration';
+const INTERNAL_SERVER_ERROR = {status: 500, reason: 'Internal Server Error'};
+const NOT_FOUND = {status: 404, reason: 'Not found'};
 
 var Drivers = mongoose.model('Drivers', driversSchema);
 var Sync = mongoose.model('Sync', syncSchema);
@@ -54,7 +56,7 @@ exports.taxiDB = {
     s.timestamp = getTimestamp();
     Drivers.findOneAndUpdate({'name': s.name}, s, {upsert: true}, (err, doc) => {
       if (err) {
-        callback(true);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         callback(false);
       }
@@ -65,12 +67,16 @@ exports.taxiDB = {
   getDriverStatus: function(name, callback) {
     Drivers.findOne({'name': name}, (err, doc) => {
       if (err) {
-        callback(true, null);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
-        doc = doc.toObject();
-        delete doc._id;
-        delete doc.__v;
-        callback(false, doc);
+        if (doc) {
+          doc = doc.toObject();
+          delete doc._id;
+          delete doc.__v;
+          callback(false, doc);
+        } else {
+          callback(true, NOT_FOUND);
+        }
       }
     });
   },
@@ -79,7 +85,7 @@ exports.taxiDB = {
   getDrivers: function(callback) {
     Drivers.find({}, (err, docs) => {
       if (err) {
-        callback(true, null);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         var drivers = docs.map(it => ({name: it.name, timestamp: it.timestamp}));
         callback(false, drivers);
@@ -91,7 +97,7 @@ exports.taxiDB = {
   deleteDriverStatus: function(name, callback) {
     Drivers.findOneAndRemove({'name': name}, (err, name) => {
       if (err) {
-        callback(true);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         callback(false);
       }
@@ -103,7 +109,7 @@ exports.taxiDB = {
     var taxies = {}; 
     Drivers.find({}, (err, docs) => {
       if (err) {
-        callback(true, null);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         docs.forEach(it => {
           if (it.carId in taxies) {
@@ -134,7 +140,7 @@ exports.taxiDB = {
     d.timestamp = getTimestamp();
     Sync.findOneAndUpdate({'type': REGISTRATION}, d, {upsert: true}, (err, doc) => {
       if (err) {
-        callback(true);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         callback(false);
       }
@@ -145,7 +151,7 @@ exports.taxiDB = {
   getRegistrationData: function(callback) {
     Sync.findOne({'type': REGISTRATION}, (err, doc) => {
       if (err) {
-        callback(true, null);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         doc = doc.toObject();
         delete doc._id;
@@ -160,7 +166,7 @@ exports.taxiDB = {
   getRegistrationDataTimestamp: function(callback) {
     Sync.findOne({'type': REGISTRATION}, (err, doc) => {
       if (err) {
-        callback(true, null);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         callback(false, {timestamp: doc.timestamp});
       }
@@ -171,7 +177,7 @@ exports.taxiDB = {
   deleteRegistrationData: function(callback) {
     Sync.findOneAndRemove({'type': REGISTRATION}, (err, type) => {
       if (err) {
-        callback(true);
+        callback(true, INTERNAL_SERVER_ERROR);
       } else {
         callback(false);
       }
