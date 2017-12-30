@@ -144,11 +144,13 @@ Response body (200 OK)
 |Name        |type   |Description                                   |
 |------------|-------|----------------------------------------------|
 |data        |String |Binary data encoded in BASE64                 |
+|timestamp   |String |Epoch time (aka Unix time)                    |
 
 Example
 ```
 {
-  "data": "<base64-encoded binary data>"
+  "data": "<base64-encoded binary data>",
+  "timestamp": "1514509935"
 }
 ```
 
@@ -175,9 +177,7 @@ taxi
   |
   +-- Drivers
   |
-  +--Taxies
-  |
-  +--Sync
+  +-- Sync
 ```
 
 For exaple, on mongo CLI,
