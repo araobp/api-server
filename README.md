@@ -118,7 +118,7 @@ Example
 
 #### PUT /sync
 ```
-PUT /sync
+PUT /sync/registration
 Upload binary data to be shared by other vehicles
 ```
 Request body (PUT)
@@ -130,13 +130,13 @@ Request body (PUT)
 Example
 ```
 {
-  "data": "<base64-encoded binary data>"
+  "data": "<base64-encoded binary data>
 }
 ```
 
 #### GET /sync
 ```
-GET /sync
+GET /sync/registration
 Download binary data
 ```
 Response body (200 OK)
@@ -154,7 +154,7 @@ Example
 
 #### GET /sync/timestamp
 ```
-GET /sync/timestamp
+GET /sync/registration/timestamp
 Show time at the latest upload
 ```
 |Name        |type   |Description                                   |
@@ -171,10 +171,19 @@ Example
 ## Mongoose data schema structure
 
 ```
-db: taxi
+taxi
+  |
+  +-- Drivers
+  |
+  +--Taxies
+  |
+  +--Sync
+```
 
-Drivers
-Taxies
-Sync
+For exaple, on mongo CLI,
+```
+> use taxi
+> db.Drivers.find()
+{ "_id" : ObjectId("5a46cf55c9b85847f010d1ed"), "name" : "driver1", "__v" : 0, "timestamp" : 1514593114, "result" : "SUCCESS", "carId" : "taxi3", "deviceId" : "device3" }
 ```
 

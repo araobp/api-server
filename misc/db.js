@@ -17,32 +17,95 @@ var driversSchema = mongoose.Schema({
 });
 
 var syncSchema = mongoose.Schema({
+  type: {type: String, unique: true},
   data: String
 });
+
+const REGISTRATION = 'registration';
 
 var Drivers = mongoose.model('Drivers', driversSchema);
 var Sync = mongoose.model('Sync', syncSchema);
 
 var timestamp = Math.round( new Date().getTime() / 1000 );
 
-var d = new Drivers({name: "driver1",
+function getTimestamp() {
+  return Math.round( new Date().getTime() / 1000 );
+}
+
+var d1 = {name: "driver1",
   deviceId: "device1",
   carId: "taxi1",
   result: "SUCCESS",
   timestamp: timestamp
-});
+};
 
-var s = new Sync({data: "ABC123"});
+var d2 = {name: 'driver1',
+  deviceId: 'device2',
+  carId: 'taxi2',
+  result: 'FAILURE',
+  timestamp: timestamp}; 
 
-console.log(d.name);
+var s1 = {type: REGISTRATION, data: "ABC123"};
+var s2 = {type: REGISTRATION, data: "DEF456"};
 
-d.save(function(err, d) {
-  if (err && err.code == 11000) {  // Duplicated
-    //
+console.log('name: ' + d1.name);
+console.log('name: ' + d2.name);
+
+// Create or Update
+Drivers.findOneAndUpdate({'name': d1.name}, d1, {upsert: true}, function(err, doc) {
+    if (err) console.log(err);
   }
-});
+);
+Drivers.findOneAndUpdate({'name': d2.name}, d2, {upsert: true}, function(err, doc) {
+    if (err) console.log(err);
+  }
+);
 
-s.save(function(err, s) {
-  if (err) return console.error(err);
-});
+Sync.findOneAndUpdate({'type': REGISTRATION}, s1, {upsert: true}, function(err, doc) {
+    if (err) console.log(err);
+  }
+);
+Sync.findOneAndUpdate({'type': REGISTRATION}, s2, {upsert: true}, function(err, doc) {
+    if (err) console.log(err);
+  }
+);
 
+exports.taxiDB = {
+
+  // CRUD Create or Update operation
+  putDriverStatus: function(s, callback) {
+    s.timestamp = getTimestamp();
+    Drivers.findOneAndUpdate({'name': s.name}, s, {upsert: true}, function(err, doc) {
+      if (err) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
+  },
+
+  // CRUD Read operation
+  getDriverStatus: function(name, callback) {
+    Drivers.findOne({'name': name}, function(err, doc) {
+      if (err) {
+        callback(true, null);
+      } else {
+        doc = doc.toObject();
+        delete doc._id;
+        delete doc.__v;
+        callback(false, doc);
+      }
+    });
+  },
+
+  // CRUD Delete operation
+  deleteDriverStatus: function(name, callback) {
+    Drivers.findOneAndRemove({'name': name}, function(err, name) {
+      if (err) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
+  }
+};
