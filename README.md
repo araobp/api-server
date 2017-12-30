@@ -1,6 +1,4 @@
-# api server
-
-A simple REST API server for managing taxi drivers.
+# REST API server for managing taxi drivers
 
 Node.js version: v8.9.3
 MongoDB version: v2.6.10
@@ -26,6 +24,13 @@ API Server:
 ```
     --- REST --- [[app.js]--[db.js(mongoose-based)]--[MongoDB]]
 ```
+## Implementation
+
+- [API Server](./server)
+
+- [Sample client](./client)
+
+This sample client is intended for RasPi as IoT GW.
 
 ## REST API spec
 
