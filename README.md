@@ -1,6 +1,4 @@
-# api server
-
-A simple REST API server for managing taxi drivers.
+# Simple REST API server for managing taxi drivers
 
 Node.js version: v8.9.3
 MongoDB version: v2.6.10
