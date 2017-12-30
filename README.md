@@ -15,7 +15,7 @@ MongoDB version: v2.6.10
 System:
 ```
                                            Taxi
-[Driver]--- sensor interface ---[Auth. device][board PC]--- REST ---[API server(MVC)]
+[Driver]--- sensor interface ---[Auth. device][board PC]--- REST ---[API server(app.js and db.js)]
                                                                        |  |
 [Driver]--- sensor interface ---[Auth. device][board PC]--- REST ------+  |
                                                                           |
@@ -24,7 +24,7 @@ System:
 
 API Server:
 ```
-    --- REST --- [[View]--[Controller]--[Model(Mongoose)][MongoDB]]
+    --- REST --- [[app.js]--[db.js(mongoose-based)]--[MongoDB]]
 ```
 
 ## REST API spec
