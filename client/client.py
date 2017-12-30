@@ -1,34 +1,58 @@
 import pprint
 import requests
+import unittest
 
 URL = 'http://localhost:18080{}'
 
-s1 = {'carId': 'taxi7',
-      'deviceId': 'device9',
-      'result': 'SUCCESS'}
+def _post(path):
+    return requests.post(URL.format(path))
+
+def _put(path, body):
+    return requests.put(URL.format(path), body)
+
+def _get(path):
+    return requests.get(URL.format(path))
+
+def _delete(path):
+    return requests.delete(URL.format(path))
 
 def _pprint(resp):
+    print(resp.status_code)
     if resp.status_code == 200:
-        pprint.pprint(resp.json())
+        try:
+            pprint.pprint(resp.json())
+        except:
+            print(resp.text)
     else:
         print(resp.text)
 
-def main():
+s1 = {'carId': 'taxi1',
+    'deviceId': 'device1',
+    'result': 'SUCCESS'}
 
-    resp = requests.get(URL.format('/drivers/driver1'))
-    _pprint(resp)
+class TestSequence(unittest.TestCase):
 
-    resp = requests.put(URL.format('/drivers/driver5'))
+    def setUp(self):
+        r = _post('/db/drop')
 
-    resp = requests.get(URL.format('/drivers/driver5'))
-    _pprint(resp)
+    def test_drop(self):
+        r = _post('/db/drop')
+        self.assertEqual(r.status_code, 200)
 
-    resp = requests.get(URL.format('/drivers'))
-    _pprint(resp)
+    def test_put_driver(self):
+        r = _put('/drivers/driver1', s1)
+        self.assertEqual(r.status_code, 200)
 
-    resp = requests.get(URL.format('/taxies'))
-    _pprint(resp)
+    def test_get_driver(self):
+        r = _put('/drivers/driver1', s1)
+        self.assertEqual(r.status_code, 200)
+        r = _get('/drivers/driver1')
+        _pprint(r)
+        self.assertEqual(r.status_code, 200)
+        rs = r.json()
+        self.assertEqual(rs['name'], 'driver1')
+        self.assertTrue(rs['timestamp'] > 0)
 
 if __name__ == '__main__':
-    main()
+    unittest.main(verbosity=2)
 

@@ -63,6 +63,10 @@ app.delete('/sync/registration', (req, res) => {
   taxiDB.deleteRegistrationData((err, doc) => sendResp(res, err, doc));
 });
 
+app.post('/db/drop', (req, res) => {
+  taxiDB.postDropDatabase((err, doc) => sendResp(res, err, doc));
+});
+
 // Listen on PORT
 
 app.listen(PORT, () => {

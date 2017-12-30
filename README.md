@@ -187,6 +187,12 @@ Example
 }
 ```
 
+### DATABASE MANAGEMENT
+```
+POST /db/drop
+Drop database
+```
+
 ## Mongoose data schema structure
 
 ```

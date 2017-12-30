@@ -184,4 +184,15 @@ exports.taxiDB = {
     });
   },
 
+  ///// Database management /////
+  postDropDatabase: function(callback) {
+    db.dropDatabase(err => {
+      if (err) {
+        callback(true, INTERNAL_SERVER_ERROR);
+      } else {
+        callback(false);
+      }
+    });
+  }
+
 };
