@@ -8,6 +8,22 @@ MongoDB version: v2.6.10
 - [Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
 - [Mongoose](http://mongoosejs.com/docs/)
 
+
+## Sensor network for managing taxi drivers
+
+```
+ [Driver]---[sensor]---[taxi]---wireless connectivity---[API server][MongoDB]
+  name      deviceId   CarId                                 |
+                                                             +------[Management client]
+```
+
+Example of sensor devices:
+- Driver authentication sensor (e.g., fingerprint authentication)
+- Driver health monitoring (e.g., doppler sensor for sensing heat beat etc)
+- Taxi tracking (GPS)
+
+In the first release, the API server supports driver authentication sensor only.
+
 ## Architecture
 
 System:
