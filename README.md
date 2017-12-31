@@ -27,10 +27,7 @@ API Server:
 ## Implementation
 
 - [API Server](./server)
-
-- [Sample client](./client)
-
-This sample client is intended for RasPi as IoT GW.
+- [Unit test](./unittest)
 
 ## REST API spec
 
