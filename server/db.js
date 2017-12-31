@@ -137,6 +137,7 @@ exports.taxiDB = {
 
   // CURD Create/Update operation
   putRegistrationData: function(d, callback) {
+    d.type = REGISTRATION;
     d.timestamp = getTimestamp();
     Sync.findOneAndUpdate({'type': REGISTRATION}, d, {upsert: true}, (err, doc) => {
       if (err) {

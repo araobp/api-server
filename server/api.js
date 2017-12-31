@@ -5,6 +5,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var taxiDB = require('./db.js').taxiDB;
 
 const PORT = 18080;
+const REGISTRATION = 'registration';
 
 function sendResp(res, err, doc) {
   if (err) {
@@ -45,10 +46,7 @@ app.get('/taxies', (req, res) => {
 });
 
 app.put('/sync/registration', (req, res) => {
-  var d = {}
-  d.type = REGISTRATION;
-  d.data = req.body;
-  taxiDB.putRegistrationData(d, (err, doc)  => sendResp(res, err, doc));
+  taxiDB.putRegistrationData(req.body, (err, doc)  => sendResp(res, err, doc));
 });
 
 app.get('/sync/registration', (req, res) => {
