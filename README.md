@@ -99,11 +99,11 @@ List of driver name and timestamp at the last PUT.
 
 Example
 ```
-[
-  {"name": "driver1", "timestamp": 1514509472},
-  {"name": "driver2", "timestamp": 1514509359],
-  {"name": "driver3", "timestamp": 1514509127]
-]
+{
+  "driver1": {"timestamp": 1514509472},
+  "driver2": {"timestamp": 1514509359},
+  "driver3": {"timestamp": 1514509127}
+}
 ```
 
 #### DELETE /drivers/{name}

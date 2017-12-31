@@ -87,7 +87,8 @@ exports.taxiDB = {
       if (err) {
         callback(true, INTERNAL_SERVER_ERROR);
       } else {
-        var drivers = docs.map(it => ({name: it.name, timestamp: it.timestamp}));
+        var drivers = {};
+        docs.forEach(it => { drivers[it.name] = {timestamp: it.timestamp} });
         callback(false, drivers);
       }
     });

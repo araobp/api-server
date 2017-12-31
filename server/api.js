@@ -38,6 +38,7 @@ app.get('/drivers', (req, res) => {
 });
 
 app.delete('/drivers/:name', (req, res) => {
+  var name = req.params.name;
   taxiDB.deleteDriverStatus(name, (err, doc) => sendResp(res, err, doc));
 });
 

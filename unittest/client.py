@@ -1,6 +1,7 @@
 import pprint
 import requests
 import base64
+import time
 import unittest
 
 URL = 'http://localhost:18080{}'
@@ -17,8 +18,13 @@ def _get(path):
 def _delete(path):
     return requests.delete(URL.format(path))
 
-def _pprint(resp):
-    print(resp.status_code)
+def _pprint(resp, comment=None):
+    print()
+    if comment:
+        print(comment)
+
+    print('status code: {}'.format(resp.status_code))
+
     if resp.status_code == 200:
         try:
             pprint.pprint(resp.json())
@@ -35,7 +41,7 @@ shift1_taxi1_jacob = {'carId': 'taxi1',
     'deviceId': 'device1',
     'result': 'SUCCESS'}
 
-shift1_taxi2_micahel = {'carId': 'taxi2',
+shift1_taxi2_michael = {'carId': 'taxi2',
     'deviceId': 'device2',
     'result': 'SUCCESS'}
 
@@ -47,15 +53,15 @@ shift2_taxi1_matthew = {'carId': 'taxi1',
     'deviceId': 'device4',
     'result': 'SUCCESS'}
   
-shift2_taxi2_unauthorized = {'carId': 'taxi2',
+shift2_taxi2_unauthorized1 = {'carId': 'taxi2',
     'deviceId': 'device5',
     'result': 'FAILURE'}
 
-shif2_taxi3_madison = {'carId': 'taxi3',
+shift2_taxi3_madison = {'carId': 'taxi3',
     'deviceId': 'device6',
     'result': 'SUCCESS'}
 
-shift3_taxi1_unauthorized = {'carId': 'taxi1',
+shift3_taxi1_unauthorized2 = {'carId': 'taxi1',
     'deviceId': 'device1',
     'result': 'FAILURE'}
   
@@ -63,7 +69,7 @@ shift3_taxi2_emily = {'carId': 'taxi2',
     'deviceId': 'device5',
     'result': 'SUCCESS'}
 
-shif3_taxi3_michael = {'carId': 'taxi3',
+shift3_taxi3_michael = {'carId': 'taxi3',
     'deviceId': 'device2',
     'result': 'SUCCESS'}
 
@@ -76,19 +82,130 @@ class TestSequence(unittest.TestCase):
         r = _post('/db/drop')
         self.assertEqual(r.status_code, 200)
 
-    def test_put_driver(self):
-        r = _put('/drivers/driver1', shift1_taxi1_jacob)
+    def test_put_driver_shift1(self):
+        r = _put('/drivers/jacob', shift1_taxi1_jacob)
         self.assertEqual(r.status_code, 200)
 
-    def test_get_driver(self):
-        r = _put('/drivers/driver1', shift1_taxi1_jacob)
+        r = _put('/drivers/michael', shift1_taxi2_michael)
         self.assertEqual(r.status_code, 200)
-        r = _get('/drivers/driver1')
-        #_pprint(r)
+
+        r = _put('/drivers/joshua', shift1_taxi3_joshua)
+        self.assertEqual(r.status_code, 200)
+
+    def test_put_get_shift1(self):
+        r = _put('/drivers/jacob', shift1_taxi1_jacob)
+        r = _put('/drivers/michael', shift1_taxi2_michael)
+        r = _put('/drivers/joshua', shift1_taxi3_joshua)
+
+        r = _get('/drivers/jacob')
         self.assertEqual(r.status_code, 200)
         rs = r.json()
-        self.assertEqual(rs['name'], 'driver1')
+        self.assertEqual(rs['name'], 'jacob')
         self.assertTrue(rs['timestamp'] > 0)
+        del rs['name']
+        del rs['timestamp']
+        self.assertEqual(rs, shift1_taxi1_jacob)
+
+        r = _get('/drivers/michael')
+        self.assertEqual(r.status_code, 200)
+        rs = r.json()
+        self.assertEqual(rs['name'], 'michael')
+        self.assertTrue(rs['timestamp'] > 0)
+        del rs['name']
+        del rs['timestamp']
+        self.assertEqual(rs, shift1_taxi2_michael)
+
+        r = _get('/drivers/joshua')
+        self.assertEqual(r.status_code, 200)
+        rs = r.json()
+        self.assertEqual(rs['name'], 'joshua')
+        self.assertTrue(rs['timestamp'] > 0)
+        del rs['name']
+        del rs['timestamp']
+        self.assertEqual(rs, shift1_taxi3_joshua)
+
+    def test_put_get_shift2(self):
+        r = _put('/drivers/Jacob', shift1_taxi1_jacob)
+        r = _put('/drivers/Michael', shift1_taxi2_michael)
+        r = _put('/drivers/Joshua', shift1_taxi3_joshua)
+
+        time.sleep(1.1)
+        r = _put('/drivers/Matthew', shift2_taxi1_matthew)
+        r = _put('/drivers/Unauthorized person 1', shift2_taxi2_unauthorized1)
+        r = _put('/drivers/Madison', shift2_taxi3_madison)
+
+        r = _get('/drivers/Jacob')
+        self.assertEqual(r.status_code, 200)
+        rs = r.json()
+        self.assertEqual(rs['name'], 'Jacob')
+        self.assertTrue(rs['timestamp'] > 0)
+        del rs['name']
+        del rs['timestamp']
+        self.assertEqual(rs, shift1_taxi1_jacob)
+
+        r = _get('/drivers/Unauthorized person 1')
+        self.assertEqual(r.status_code, 200)
+        rs = r.json()
+        self.assertEqual(rs['name'], 'Unauthorized person 1')
+        self.assertTrue(rs['timestamp'] > 0)
+        del rs['name']
+        del rs['timestamp']
+        self.assertEqual(rs, shift2_taxi2_unauthorized1)
+
+    def test_put_get_shift3(self):
+        r = _put('/drivers/Jacob', shift1_taxi1_jacob)
+        r = _put('/drivers/Michael', shift1_taxi2_michael)
+        r = _get('/drivers/Michael')
+        rs = r.json()
+        n1 = rs['name']
+        t1 = rs['timestamp']
+        r = _put('/drivers/Joshua', shift1_taxi3_joshua)
+
+        time.sleep(1.1)
+        r = _put('/drivers/Matthew', shift2_taxi1_matthew)
+        r = _put('/drivers/Unauthorized person 1', shift2_taxi2_unauthorized1)
+        r = _put('/drivers/Madison', shift2_taxi3_madison)
+
+        time.sleep(1.1)
+        r = _put('/drivers/Unauthorized person 2', shift3_taxi1_unauthorized2)
+        r = _put('/drivers/Emily', shift3_taxi2_emily)
+        r = _put('/drivers/Michael', shift3_taxi3_michael)
+        r = _get('/drivers/Michael')
+        rs = r.json()
+        n2 = rs['name']
+        t2 = rs['timestamp']
+        self.assertEqual(n1, n2)
+        self.assertTrue(t2 > t1)
+
+        # GET /drivers
+        r = _get('/drivers')
+        _pprint(r, 'GET /drivers')
+        rs = r.json()
+        self.assertEqual(len(rs), 8)
+        self.assertEqual(rs['Michael']['timestamp'], t2)
+
+        # GET /taxies
+        r = _get('/taxies')
+        _pprint(r, 'GET /taxies')
+        rs = r.json()
+        taxi1 = rs['taxi1']
+        taxi2 = rs['taxi2']
+        taxi3 = rs['taxi3']
+        self.assertEqual(taxi1['name'], 'Unauthorized person 2')
+        self.assertEqual(taxi1['result'], 'FAILURE')
+        self.assertEqual(taxi2['name'], 'Emily')
+        self.assertEqual(taxi2['result'], 'SUCCESS')
+        self.assertEqual(taxi3['name'], 'Michael')
+        self.assertEqual(taxi3['result'], 'SUCCESS')
+
+        # DELETE /drivers/Unauthorized person 2
+        r = _delete('/drivers/Unauthorized person 2')
+        r = _get('/drivers/Unauthorized person 2')
+        self.assertEqual(r.status_code, 404)
+        r = _get('/drivers')
+        _pprint(r, 'GET /drivers')
+        rs =r.json()
+        self.assertFalse('Unauthorized person 2' in rs)
 
     def test_put_registration_data(self):
         r = _put('/sync/registration', {'data': b64data})
@@ -100,10 +217,6 @@ class TestSequence(unittest.TestCase):
         # save the file to confirm that the image file is OK 
         with open('gps_.jpg', 'wb') as f:
             f.write(base64.b64decode(rs['data']))
-
-    def test_put_registration_data(self):
-        r = _put('/sync/registration', {'data': b64data})
-        self.assertEqual(r.status_code, 200)
 
     def test_get_registration_data(self):
         r = _put('/sync/registration', {'data': b64data})
@@ -115,6 +228,23 @@ class TestSequence(unittest.TestCase):
         # save the file to confirm that the image file is OK 
         with open('gps_.jpg', 'wb') as f:
             f.write(base64.b64decode(rs['data']))
+
+    def test_get_registration_data_timestamp(self):
+        r = _put('/sync/registration', {'data': b64data})
+        self.assertEqual(r.status_code, 200)
+        r = _get('/sync/registration/timestamp')
+        _pprint(r, 'GET /sync/registration/timestamp')
+        self.assertEqual(r.status_code, 200)
+        t1 = r.json()['timestamp']
+
+        time.sleep(1.1)
+        r = _put('/sync/registration', {'data': b64data})
+        self.assertEqual(r.status_code, 200)
+        r = _get('/sync/registration/timestamp')
+        self.assertEqual(r.status_code, 200)
+        t2 = r.json()['timestamp']
+
+        self.assertTrue(t2 > t1)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
