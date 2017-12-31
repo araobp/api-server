@@ -10,6 +10,11 @@ This example use ["requests"](http://docs.python-requests.org/en/master/) packag
 
 A small taxi company owns three taxies: taxi1, taxi2 and taxi3. The company hires six drivers: Jacob, Michael, Joshua, Matthew, Emily and Madison.
 
+```
+ [Driver]---[sensor]---[car]---wireless connectivity---[API server][MongoDB]
+  name      deviceId   CarId 
+```
+
 ### Shift 1
 
 |Car ID|Device ID|Driver                 |
