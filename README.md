@@ -62,9 +62,10 @@ Request body (PUT)
 
 Example
 ```
+PUT /drivers/Michael
 {
-  "deviceId": "auth-device-1",
-  "carId": "taxi-1",
+  "deviceId": "device1",
+  "carId": "taxi1",
   "result": "SUCCESS"
 }
 ```
@@ -78,6 +79,7 @@ Response body (200 OK)
 
 |Name        |type   |Description                                   |
 |------------|-------|----------------------------------------------|
+|name        |String |Driver name                                   |
 |deviceId    |String |Authentication device ID                      |
 |carId       |String |Vehicle ID                                    |
 |result      |String |Authentication result: "SUCCESS" or "FAILURE" |
@@ -91,10 +93,12 @@ pi@raspberrypi:~ $ date +%s
 
 Example
 ```
+GET /driviers/Michael
 {
-  "deviceId": "auth-device-1",
-  "carId": "taxi-1",
-  "result": "FAILURE",
+  "name": "Michael",
+  "deviceId": "device1",
+  "carId": "taxi1",
+  "result": "SUCCESS",
   "timestamp": 1514509809
 }
 ```
@@ -111,9 +115,9 @@ List of driver name and timestamp at the last PUT.
 Example
 ```
 {
-  "driver1": {"timestamp": 1514509472},
-  "driver2": {"timestamp": 1514509359},
-  "driver3": {"timestamp": 1514509127}
+  "Jacob": {"timestamp": 1514509472},
+  "Michael": {"timestamp": 1514509359},
+  "Joshua": {"timestamp": 1514509127}
 }
 ```
 
@@ -127,8 +131,6 @@ Delete driver
 
 This operation is the heart of the API service.
 
-TODO: GPS-based taxi tracking and WebSocket support for pushing data to the client in real time.
-
 #### GET /taxies
 ```
 GET /taxies
@@ -141,9 +143,9 @@ List of driver name and timestamp at the last PUT
 Example
 ```
 {
-  "taxi1": {"name": "driver1", "result": "SUCCESS", "timestamp": 1514509472},
-  "taxi2": {"name": "driver2", "result": "SUCCESS", "timestamp": 1514509359},
-  "taxi3": {"name": "driver3", "result": "FAILURE", "timestamp": 1514509127}
+  "taxi1": {"name": "Jacob", "result": "SUCCESS", "timestamp": 1514509472},
+  "taxi2": {"name": "Michael", "result": "SUCCESS", "timestamp": 1514509359},
+  "taxi3": {"name": "Joshua", "result": "FAILURE", "timestamp": 1514509127}
 }
 ```
 
