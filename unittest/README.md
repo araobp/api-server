@@ -12,24 +12,24 @@ A small taxi company owns three taxies: taxi1, taxi2 and taxi3. The company hire
 
 ### Shift 1
 
-|Car ID|Device ID|Driver               |
-|------|---------|---------------------|
-|Taxi1 |device1  |Jacob                |
-|Taxi2 |device2  |Michael              |
-|Taxi3 |device3  |Joshua               |
+|Car ID|Device ID|Driver                 |
+|------|---------|-----------------------|
+|Taxi1 |device1  |Jacob                  |
+|Taxi2 |device2  |Michael                |
+|Taxi3 |device3  |Joshua                 |
 
 ### Shift 2
 
-|Car ID|Device ID|Driver               |
-|------|---------|---------------------|
-|Taxi1 |device4  |Matthew              |
-|Taxi2 |device5  |(Unauthorized driver)|
-|Taxi3 |device6  |Madison              |
+|Car ID|Device ID|Driver                 |
+|------|---------|-----------------------|
+|Taxi1 |device4  |Matthew                |
+|Taxi2 |device5  |(Unauthorized person 1)|
+|Taxi3 |device6  |Madison                |
 
 ### Shift 3
 
-|Car ID|Device ID|Driver               |
-|------|---------|---------------------|
-|Taxi1 |device1  |(Unauthorized driver)|
-|Taxi2 |device5  |Emily                |
-|Taxi3 |device2  |Michael              |
+|Car ID|Device ID|Driver                 |
+|------|---------|-----------------------|
+|Taxi1 |device1  |(Unauthorized person 2)|
+|Taxi2 |device5  |Emily                  |
+|Taxi3 |device2  |Michael                |
