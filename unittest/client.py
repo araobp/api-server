@@ -83,42 +83,43 @@ class TestSequence(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
 
     def test_put_driver_shift1(self):
-        r = _put('/drivers/jacob', shift1_taxi1_jacob)
+        r = _put('/drivers/Jacob', shift1_taxi1_jacob)
         self.assertEqual(r.status_code, 200)
 
-        r = _put('/drivers/michael', shift1_taxi2_michael)
+        r = _put('/drivers/Michael', shift1_taxi2_michael)
         self.assertEqual(r.status_code, 200)
 
-        r = _put('/drivers/joshua', shift1_taxi3_joshua)
+        r = _put('/drivers/Joshua', shift1_taxi3_joshua)
         self.assertEqual(r.status_code, 200)
 
     def test_put_get_shift1(self):
-        r = _put('/drivers/jacob', shift1_taxi1_jacob)
-        r = _put('/drivers/michael', shift1_taxi2_michael)
-        r = _put('/drivers/joshua', shift1_taxi3_joshua)
+        r = _put('/drivers/Jacob', shift1_taxi1_jacob)
+        r = _put('/drivers/Michael', shift1_taxi2_michael)
+        r = _put('/drivers/Joshua', shift1_taxi3_joshua)
 
-        r = _get('/drivers/jacob')
+        r = _get('/drivers/Jacob')
+        _pprint(r, 'GET /drivers/Jacob')
         self.assertEqual(r.status_code, 200)
         rs = r.json()
-        self.assertEqual(rs['name'], 'jacob')
+        self.assertEqual(rs['name'], 'Jacob')
         self.assertTrue(rs['timestamp'] > 0)
         del rs['name']
         del rs['timestamp']
         self.assertEqual(rs, shift1_taxi1_jacob)
 
-        r = _get('/drivers/michael')
+        r = _get('/drivers/Michael')
         self.assertEqual(r.status_code, 200)
         rs = r.json()
-        self.assertEqual(rs['name'], 'michael')
+        self.assertEqual(rs['name'], 'Michael')
         self.assertTrue(rs['timestamp'] > 0)
         del rs['name']
         del rs['timestamp']
         self.assertEqual(rs, shift1_taxi2_michael)
 
-        r = _get('/drivers/joshua')
+        r = _get('/drivers/Joshua')
         self.assertEqual(r.status_code, 200)
         rs = r.json()
-        self.assertEqual(rs['name'], 'joshua')
+        self.assertEqual(rs['name'], 'Joshua')
         self.assertTrue(rs['timestamp'] > 0)
         del rs['name']
         del rs['timestamp']
