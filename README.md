@@ -21,10 +21,10 @@ System:
 ```
                                            Taxi
 [Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN ---[API server(app.js and db.js)]
-                                                                                      |  |          |
-[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN --------------+  |      HTTP/OpenVPN
-                                                                                         |          |
-[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN -----------------+    [Taxi management appl.]
+                                                                                   |  |        |
+[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN -----------+  |    HTTP/OpenVPN
+                                                                                      |        |
+[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN --------------+  [Taxi management appl.]
 ```
 
 API Server:
