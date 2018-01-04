@@ -18,14 +18,7 @@ In the first release, the API server supports driver authentication sensor only.
 ## Architecture
 
 System:
-```
-                                           Taxi
-[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN ---[API server(app.js and db.js)]
-                                                                                   |  |        |
-[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN -----------+  |    HTTP/OpenVPN
-                                                                                      |        |
-[Driver]--- sensor interface ---[Auth. device][RasPi 3]--- HTTP/OpenVPN --------------+  [Taxi management appl.]
-```
+![vpn](./doc/vpn.jpg)
 
 API Server:
 ```
