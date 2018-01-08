@@ -20,6 +20,8 @@ In the first release, the API server supports driver authentication sensor only.
 System:
 ![vpn](./doc/vpn.jpg)
 
+[OpenVPN setup tips](./doc/openvpn.md)
+
 API Server:
 ```
     --- REST --- [[app.js]--[db.js(mongoose-based)]--[MongoDB]]
