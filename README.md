@@ -31,6 +31,24 @@ API Server:
 - [API Server](./server)
 - [Unit test](./unittest)
 
+## Schema (data model)
+
+```
+var driversSchema = mongoose.Schema({
+  name: {type: String, unique: true},
+  deviceId: String,
+  carId: String,
+  result: String,
+  timestamp: Number
+});
+
+var syncSchema = mongoose.Schema({
+  type: {type: String, unique: true},
+  data: String,
+  timestamp: Number
+});
+```
+
 ## REST API spec
 
 ### TAXI DRIVER STATUS MANAGEMENT
