@@ -13,7 +13,7 @@ client
 dev    tun
 proto  tcp
 
-remote ec2-18-220-93-60.us-east-2.compute.amazonaws.com 443
+remote <IP address of OpenVPN server> 443
 
 resolv-retry  infinite
 nobind
