@@ -33,20 +33,6 @@ function getTimestamp() {
   return Math.round( new Date().getTime() / 1000 );
 }
 
-var s1 = {type: REGISTRATION, data: "ABC123"};
-var s2 = {type: REGISTRATION, data: "DEF456"};
-
-// Create or Update
-
-Sync.findOneAndUpdate({'type': REGISTRATION}, s1, {upsert: true}, (err, doc) => {
-    if (err) console.log(err);
-  }
-);
-Sync.findOneAndUpdate({'type': REGISTRATION}, s2, {upsert: true}, (err, doc) => {
-    if (err) console.log(err);
-  }
-);
-
 exports.taxiDB = {
 
   ///// Schema: Drivers /////

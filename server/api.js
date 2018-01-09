@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true, limit: '200mb'}));
+app.use(bodyParser.json({limit: '200mb'}));
 var taxiDB = require('./db.js').taxiDB;
 
 const PORT = 18080;

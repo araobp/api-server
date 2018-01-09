@@ -5,12 +5,14 @@ import time
 import unittest
 
 URL = 'http://localhost:18080{}'
+headers = {'Content-type': 'application/json'}
 
 def _post(path):
     return requests.post(URL.format(path))
 
 def _put(path, body):
-    return requests.put(URL.format(path), body)
+    return requests.put(URL.format(path), json=body, headers=headers)
+#    return requests.put(URL.format(path), body)
 
 def _get(path):
     return requests.get(URL.format(path))
