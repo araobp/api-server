@@ -42,13 +42,25 @@ A small taxi company owns three taxies: taxi1, taxi2 and taxi3. The company hire
 
 ## Unittest result
 ```
-$ ubuntu:~/api-server/unittest$ ./run.sh
 test_drop (__main__.TestSequence) ... ok
+test_get_certtest (__main__.TestSequence) ...
+GET /client/certtest
+status code: 200
+{'message': 'Hello taxi!'}
+
+GET /client/certtest
+status code: 403
+You cert is invalid
+
+GET /client/certtest
+status code: 401
+You need to provie a client cert
+ok
 test_get_registration_data (__main__.TestSequence) ... ok
 test_get_registration_data_timestamp (__main__.TestSequence) ...
 GET /sync/registration/timestamp
 status code: 200
-{'timestamp': 1514765153}
+{'timestamp': 1515882881}
 ok
 test_put_driver_shift1 (__main__.TestSequence) ... ok
 test_put_get_shift1 (__main__.TestSequence) ...
@@ -58,46 +70,47 @@ status code: 200
  'deviceId': 'device1',
  'name': 'Jacob',
  'result': 'SUCCESS',
- 'timestamp': 1514765155}
+ 'timestamp': 1515882884}
 ok
 test_put_get_shift2 (__main__.TestSequence) ... ok
 test_put_get_shift3 (__main__.TestSequence) ...
 GET /drivers
 status code: 200
-{'Emily': {'timestamp': 1514765158},
- 'Jacob': {'timestamp': 1514765156},
- 'Joshua': {'timestamp': 1514765156},
- 'Madison': {'timestamp': 1514765157},
- 'Matthew': {'timestamp': 1514765157},
- 'Michael': {'timestamp': 1514765158},
- 'Unauthorized person 1': {'timestamp': 1514765157},
- 'Unauthorized person 2': {'timestamp': 1514765158}}
+{'Emily': {'timestamp': 1515882889},
+ 'Jacob': {'timestamp': 1515882886},
+ 'Joshua': {'timestamp': 1515882886},
+ 'Madison': {'timestamp': 1515882888},
+ 'Matthew': {'timestamp': 1515882888},
+ 'Michael': {'timestamp': 1515882889},
+ 'Unauthorized person 1': {'timestamp': 1515882888},
+ 'Unauthorized person 2': {'timestamp': 1515882889}}
 
 GET /taxies
 status code: 200
 {'taxi1': {'name': 'Unauthorized person 2',
            'result': 'FAILURE',
-           'timestamp': 1514765158},
- 'taxi2': {'name': 'Emily', 'result': 'SUCCESS', 'timestamp': 1514765158},
- 'taxi3': {'name': 'Michael', 'result': 'SUCCESS', 'timestamp': 1514765158}}
+           'timestamp': 1515882889},
+ 'taxi2': {'name': 'Emily', 'result': 'SUCCESS', 'timestamp': 1515882889},
+ 'taxi3': {'name': 'Michael', 'result': 'SUCCESS', 'timestamp': 1515882889}}
 
 GET /drivers
 status code: 200
-{'Emily': {'timestamp': 1514765158},
- 'Jacob': {'timestamp': 1514765156},
- 'Joshua': {'timestamp': 1514765156},
- 'Madison': {'timestamp': 1514765157},
- 'Matthew': {'timestamp': 1514765157},
- 'Michael': {'timestamp': 1514765158},
- 'Unauthorized person 1': {'timestamp': 1514765157}}
+{'Emily': {'timestamp': 1515882889},
+ 'Jacob': {'timestamp': 1515882886},
+ 'Joshua': {'timestamp': 1515882886},
+ 'Madison': {'timestamp': 1515882888},
+ 'Matthew': {'timestamp': 1515882888},
+ 'Michael': {'timestamp': 1515882889},
+ 'Unauthorized person 1': {'timestamp': 1515882888}}
 ok
 test_put_registration_data (__main__.TestSequence) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 5.056s
+Ran 9 tests in 10.310s
 
 OK
 ```
+
 ## Reference
 
 - [Handling self-signed cert](http://docs.python-requests.org/en/master/user/advanced/)
