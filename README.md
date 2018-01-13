@@ -236,5 +236,5 @@ For exaple, on mongo CLI,
 
 ## TODO
 
-- Support change notifications: WebSocket.
+- Support change notifications: MQTT over WebSocket.
 
