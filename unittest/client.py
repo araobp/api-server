@@ -20,6 +20,12 @@ def _put(path, body):
 def _get(path):
     return requests.get(URL.format(path), verify=CERT)
 
+def _get_with_client_cert(path):
+    return requests.get(URL.format(path), verify=CERT, cert=('./cert/taxi_cert.pem', './cert/taxi_key.pem'))
+
+def _get_with_invalid_client_cert(path):
+    return requests.get(URL.format(path), verify=CERT, cert=('./cert/invalid_cert.pem', './cert/invalid_key.pem'))
+
 def _delete(path):
     return requests.delete(URL.format(path), verify=CERT)
 
@@ -86,6 +92,19 @@ class TestSequence(unittest.TestCase):
     def test_drop(self):
         r = _post('/db/drop')
         self.assertEqual(r.status_code, 200)
+
+    def test_get_certtest(self):
+        r = _get_with_client_cert('/client/certtest')
+        self.assertEqual(r.status_code, 200)
+        _pprint(r, 'GET /client/certtest')
+
+        r = _get_with_invalid_client_cert('/client/certtest')
+        self.assertEqual(r.status_code, 403)
+        _pprint(r, 'GET /client/certtest')
+
+        r = _get('/client/certtest')
+        self.assertEqual(r.status_code, 401)
+        _pprint(r, 'GET /client/certtest')
 
     def test_put_driver_shift1(self):
         r = _put('/drivers/Jacob', shift1_taxi1_jacob)

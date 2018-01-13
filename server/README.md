@@ -13,3 +13,6 @@ I have confirmed that the implementation works with the following versions:
 
 [REFERENCE] https://stackoverflow.com/questions/21397809/create-a-trusted-self-signed-ssl-cert-for-localhost-for-use-with-express-node
 
+## Client cert
+
+[REFERENCE] https://www.linkedin.com/pulse/authentication-using-https-client-certificates-andr%C3%A1s-sevcsik

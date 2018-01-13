@@ -16,7 +16,10 @@ const PORT = 18080;
 // HTTPS server cert sample files
 const httpsOptions = {
   key: fs.readFileSync('./cert/key.pem'),
-  cert: fs.readFileSync('./cert/cert.pem')
+  cert: fs.readFileSync('./cert/cert.pem'),
+  requestCert: true,
+  rejectUnauthorized: false,
+  ca: [ fs.readFileSync('./cert/cert.pem') ]
 }
 
 const REGISTRATION = 'registration';
@@ -34,6 +37,24 @@ function sendResp(res, err, doc) {
 }
 
 // REST API
+
+// This API path is just for confirming that client certification works OK
+app.get('/client/certtest', (req, res) => {
+    const cert = req.connection.getPeerCertificate()
+    if (req.client.authorized) {
+        var doc = {message: 'Hello ' + cert.subject.CN + '!'};
+        sendResp(res, false, doc);
+    } else {
+        if (cert.subject) {
+          sendResp(res, true, {status: 403, reason: 'You cert is invalid'});
+        } else {
+          var doc = {result: 'You need to provide a client cert'};
+          sendResp(res, true,
+              {status: 401, reason: 'You need to provie a client cert'}
+          );
+        }
+    }
+});
 
 app.put('/drivers/:name', (req, res) => {
   var name = req.params.name;
