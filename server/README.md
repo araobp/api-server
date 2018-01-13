@@ -9,3 +9,7 @@ I have confirmed that the implementation works with the following versions:
 - [Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
 - [Mongoose](http://mongoosejs.com/docs/)
 
+## Self-signed cert
+
+[REFERENCE] https://stackoverflow.com/questions/21397809/create-a-trusted-self-signed-ssl-cert-for-localhost-for-use-with-express-node
+

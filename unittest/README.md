@@ -98,3 +98,6 @@ Ran 8 tests in 5.056s
 
 OK
 ```
+## Reference
+
+- [Handling self-signed cert](http://docs.python-requests.org/en/master/user/advanced/)

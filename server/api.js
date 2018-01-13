@@ -1,11 +1,24 @@
 var express = require('express');
 var app = express();
+var https = require('https');
+var fs = require('fs');
 var bodyParser = require('body-parser');
+
+// Allow max 200Mbits data
 app.use(bodyParser.urlencoded({extended: true, limit: '200mb'}));
 app.use(bodyParser.json({limit: '200mb'}));
+
+// Database on MongoDB
 var taxiDB = require('./db.js').taxiDB;
 
+// HTTPS server port 
 const PORT = 18080;
+// HTTPS server cert sample files
+const httpsOptions = {
+  key: fs.readFileSync('./cert/key.pem'),
+  cert: fs.readFileSync('./cert/cert.pem')
+}
+
 const REGISTRATION = 'registration';
 
 function sendResp(res, err, doc) {
@@ -69,7 +82,7 @@ app.post('/db/drop', (req, res) => {
 
 // Listen on PORT
 
-app.listen(PORT, () => {
+https.createServer(httpsOptions, app).listen(PORT, () => {
   console.log('API server listening on port ' + PORT);
 });
 

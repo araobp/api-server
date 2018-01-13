@@ -4,21 +4,24 @@ import base64
 import time
 import unittest
 
-URL = 'http://localhost:18080{}'
+URL = 'https://localhost:18080{}'
 headers = {'Content-type': 'application/json'}
 
+# Self-signed HTTPS server cert
+CERT = './cert/cert.pem'
+
 def _post(path):
-    return requests.post(URL.format(path))
+    return requests.post(URL.format(path), verify=CERT)
 
 def _put(path, body):
-    return requests.put(URL.format(path), json=body, headers=headers)
-#    return requests.put(URL.format(path), body)
+    return requests.put(URL.format(path), json=body,
+            headers=headers, verify=CERT)
 
 def _get(path):
-    return requests.get(URL.format(path))
+    return requests.get(URL.format(path), verify=CERT)
 
 def _delete(path):
-    return requests.delete(URL.format(path))
+    return requests.delete(URL.format(path), verify=CERT)
 
 def _pprint(resp, comment=None):
     print()
@@ -250,5 +253,5 @@ class TestSequence(unittest.TestCase):
         self.assertTrue(t2 > t1)
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    unittest.main(verbosity=2, warnings='ignore')
 

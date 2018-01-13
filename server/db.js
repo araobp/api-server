@@ -1,12 +1,14 @@
 var mongoose = require('mongoose');
 
+mongoose.Promise = require('bluebird');
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('DB connected');
 });
 
-mongoose.connect('mongodb://localhost/taxi');
+mongoose.connect('mongodb://localhost/taxi', {useMongoClient: true});
 
 var driversSchema = mongoose.Schema({
   name: {type: String, unique: true},
