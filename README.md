@@ -1,5 +1,9 @@
 # REST API server for managing taxi drivers
 
+## Motivation
+
+I sometimes use taxi. I have noticed that taxi drivers are aging. They require health monitoring even during driving taxi.
+
 ## Sensor network for managing taxi drivers
 
 ```
