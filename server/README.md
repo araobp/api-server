@@ -11,7 +11,7 @@ I have confirmed that the implementation works with the following versions:
 
 ## Authentication with client cert
 
-This implementation partly support authentication with client cert, just for a testing purpose.
+This implementation partly support authentication with client cert, just for a testing purpose: GET '/client/certtest'.
 
 A real API server MUST implement such authentication for all the REST API pathes.
 
